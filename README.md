@@ -13,11 +13,12 @@ An interactive app that allows users to upload PDF files and query their content
    git clone https://github.com/Tulasi186/-PDF-Query-Bot-.git
    cd PDF-Query-Bot
 
-Install dependencies:
+## Install dependencies:
  pip install -r requirements.txt
 
-Usage
+## Usage
 Run the FastAPI server:
 uvicorn main:app --reload
+
 Then, navigate to http://localhost:8000 in your browser.
 
