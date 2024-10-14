@@ -1,0 +1,7 @@
+sentence_transformers
+pypdf 
+faiss-cpu
+langchain 
+langchain-openai 
+langchain-groq
+langchain_community

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Query Bot</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to PDF Query Bot !!</h1>
+
+        <!-- Upload Form -->
+        <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="application/pdf" required>
+            <button type="submit">Upload PDF</button>
+        </form>
+
+        <div id="note">Upload a PDF to start querying content! 🚀📄</div>
+
+        <!-- Chat Form -->
+        <form id="chatForm" action="/chat" method="post" style="display: none;">
+            <input type="text" name="query" placeholder="Type your question here" required>
+            <button type="submit">Ask</button>
+        </form>
+
+        <div id="response"></div>
+    </div>
+
+    <script>
+        const uploadForm = document.getElementById("uploadForm");
+        const chatForm = document.getElementById("chatForm");
+        const note = document.getElementById("note");
+        const responseDiv = document.getElementById("response");
+
+        uploadForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const formData = new FormData(uploadForm);
+
+            const response = await fetch("/upload", {
+                method: "POST",
+                body: formData
+            });
+
+            if (response.ok) {
+                note.innerText = "PDF uploaded successfully. You can now ask questions!";
+                uploadForm.style.display = "none";
+                chatForm.style.display = "block";
+            } else {
+                note.innerText = "Failed to upload PDF. Please try again.";
+            }
+        });
+
+        chatForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const formData = new FormData(chatForm);
+            const query = formData.get("query");
+
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ query })
+            });
+
+            const data = await response.json();
+            responseDiv.innerText = data.response ? data.response : "No response received.";
+        });
+    </script>
+</body>
+</html>
