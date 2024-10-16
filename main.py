@@ -18,7 +18,7 @@ from langchain.chains import create_retrieval_chain
 from langchain_groq import ChatGroq
 
 app = FastAPI()
-os.environ["GROQ_API_KEY"] = "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"
+os.environ["GROQ_API_KEY"] = "YOUR GROQ_API_KEY "
 
 # Set up templates and static files
 templates = Jinja2Templates(directory="templates")
